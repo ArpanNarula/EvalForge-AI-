@@ -27,7 +27,8 @@ _llm = LLMService()
 _emb = embedding_service
 
 
-@router.post("/", response_model=GenerationResult, summary="Generate multiple responses")
+@router.post("", response_model=GenerationResult, summary="Generate multiple responses")
+@router.post("/", response_model=GenerationResult, include_in_schema=False)
 async def generate_responses(request: PromptRequest):
     """
     Generate 3–5 responses using strategy diversification.

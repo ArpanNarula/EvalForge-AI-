@@ -57,7 +57,8 @@ def update_session_feedback(session_id: str, feedback_rating: int):
         match["feedback_rating"] = feedback_rating
 
 
-@router.get("/", response_model=HistoryResponse, summary="Paginated session history")
+@router.get("", response_model=HistoryResponse, summary="Paginated session history")
+@router.get("/", response_model=HistoryResponse, include_in_schema=False)
 async def get_history(
     page: int = Query(1, ge=1),
     page_size: int = Query(10, ge=1, le=50),

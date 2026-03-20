@@ -62,3 +62,18 @@ app.include_router(retrieve.router, prefix="/retrieve", tags=["Retrieval"])
 @app.get("/health")
 async def health_check():
     return {"status": "ok", "service": "EvalForge AI"}
+
+
+@app.get("/")
+async def root():
+    return {
+        "service": "EvalForge AI",
+        "status": "ok",
+        "docs": "/docs",
+        "health": "/health",
+        "generate": "/generate",
+        "evaluate": "/evaluate",
+        "feedback": "/feedback",
+        "history": "/history",
+        "retrieve": "/retrieve",
+    }

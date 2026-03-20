@@ -21,7 +21,8 @@ log = get_logger(__name__)
 _emb = embedding_service
 
 
-@router.post("/", response_model=RetrievalResult, summary="Retrieve similar past prompts")
+@router.post("", response_model=RetrievalResult, summary="Retrieve similar past prompts")
+@router.post("/", response_model=RetrievalResult, include_in_schema=False)
 async def retrieve_similar(request: RetrievalRequest):
     """
     Semantic search over all stored prompt embeddings in ChromaDB.

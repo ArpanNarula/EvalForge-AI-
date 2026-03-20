@@ -21,7 +21,8 @@ _eval = EvaluationService()
 _feedback = feedback_service
 
 
-@router.post("/", response_model=EvaluationResult, summary="Evaluate and rank responses")
+@router.post("", response_model=EvaluationResult, summary="Evaluate and rank responses")
+@router.post("/", response_model=EvaluationResult, include_in_schema=False)
 async def evaluate_responses(request: EvaluationRequest):
     """
     Run the three-method evaluation pipeline:

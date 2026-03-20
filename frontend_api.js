@@ -45,7 +45,7 @@ async function request(method, path, body = null) {
  * @returns {Promise<GenerationResult>}
  */
 export function generateResponses(prompt, strategies, versionTag) {
-  return request("POST", "/generate", {
+  return request("POST", "/generate/", {
     prompt,
     strategies: strategies || ["balanced", "concise", "detailed"],
     num_responses: strategies?.length || 3,
@@ -62,7 +62,7 @@ export function generateResponses(prompt, strategies, versionTag) {
  * @returns {Promise<EvaluationResult>}
  */
 export function evaluateResponses(sessionId, prompt, responses) {
-  return request("POST", "/evaluate", { session_id: sessionId, prompt, responses });
+  return request("POST", "/evaluate/", { session_id: sessionId, prompt, responses });
 }
 
 /** Returns current scoring weights (live RLHF values). */
@@ -90,7 +90,7 @@ export function submitFeedback(
   comment,
   scoreBreakdown,
 ) {
-  return request("POST", "/feedback", {
+  return request("POST", "/feedback/", {
     session_id: sessionId,
     prompt,
     selected_response_id: selectedResponseId,
@@ -118,7 +118,7 @@ export function getHistory(page = 1, pageSize = 10, minScore, version) {
   const params = new URLSearchParams({ page, page_size: pageSize });
   if (minScore != null) params.set("min_score", minScore);
   if (version) params.set("version", version);
-  return request("GET", `/history?${params}`);
+  return request("GET", `/history/?${params}`);
 }
 
 /** Aggregate metrics across all sessions. */
@@ -133,7 +133,7 @@ export function getMetrics() {
  * @param {number} [topK=3]
  */
 export function retrieveSimilar(query, topK = 3) {
-  return request("POST", "/retrieve", { query, top_k: topK });
+  return request("POST", "/retrieve/", { query, top_k: topK });
 }
 
 /** Debug: see what RAG context would be injected for a query. */

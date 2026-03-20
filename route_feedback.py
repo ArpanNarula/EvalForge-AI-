@@ -22,7 +22,8 @@ _feedback = feedback_service
 _emb = embedding_service
 
 
-@router.post("/", response_model=FeedbackResponse, summary="Record user preference")
+@router.post("", response_model=FeedbackResponse, summary="Record user preference")
+@router.post("/", response_model=FeedbackResponse, include_in_schema=False)
 async def record_feedback(request: FeedbackRequest):
     """
     Record a human preference signal:
