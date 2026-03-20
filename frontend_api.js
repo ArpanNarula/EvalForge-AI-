@@ -4,7 +4,12 @@
  * Import these in pages/components instead of calling fetch() directly.
  */
 
-const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const PROD_API_BASE = "https://evalforge-ai-api.vercel.app";
+const BASE =
+  process.env.NEXT_PUBLIC_API_URL ||
+  (typeof window !== "undefined" && window.location.hostname !== "localhost"
+    ? PROD_API_BASE
+    : "http://localhost:8000");
 
 async function request(method, path, body = null) {
   const opts = {
